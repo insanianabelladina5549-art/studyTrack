@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Supaya website menyesuaikan ukuran HP -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyTrack</title>
+
+    <!-- Menghubungkan HTML dengan CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="brand">
+                <div class="brand-icon">🌿</div>
+
+                <div>
+                    <h1>Kayla Track</h1>
+                    <p>Your little space to stay organized.</p>
+                </div>
+            </div>
+
+            <button class="add-task-btn">
+                + Add Task
+            </button>
+
+        </header>
+
+
+        <!-- GREETING -->
+        <section class="greeting">
+
+            <p class="greeting-small">Hii Pretty!</p>
+
+            <h2>
+                Let's get your tasks<br>
+                <span>done today.</span>
+            </h2>
+
+        </section>
+
+
+        <!-- STATISTIK -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <p>Total Tasks</p>
+                <h3 id="totalTasks">0</h3>
+            </div>
+
+            <div class="stat-card">
+                <p>Pending</p>
+                <h3 id="pendingTasks">0</h3>
+            </div>
+
+            <div class="stat-card">
+                <p>Completed</p>
+                <h3 id="completedTasks">0</h3>
+            </div>
+
+        </section>
+
+
+        <!-- TASK AREA -->
+        <section class="tasks-section">
+
+            <div class="section-title">
+
+    <div>
+        <p class="section-label">YOUR TASKS</p>
+        <h2>My Tasks</h2>
+    </div>
+
+    <div class="task-tools">
+
+        <div class="search-box">
+            <span>🔍</span>
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Cari tugas..."
+            >
+        </div>
+
+        <div class="filter-wrapper">
+
+            <button class="filter-btn" id="filterBtn">
+                All ▾
+            </button>
+
+            <div class="filter-menu" id="filterMenu">
+                <button data-filter="all">All</button>
+                <button data-filter="pending">Pending</button>
+                <button data-filter="completed">Completed</button>
+                <button data-filter="overdue">Overdue</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+            </div>
+
+
+            <div id="taskList">
+
+    <div class="empty-state">
+
+        <h3>No tasks yet</h3>
+
+        <p>
+            Add your first task and keep everything organized.
+        </p>
+    </div>
+
+</div>
+
+
+        </section>
+
+    </div>
+
+    <!-- =========================
+     ADD TASK MODAL
+========================= -->
+
+<div class="modal" id="taskModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <p class="section-label">NEW TASK</p>
+                <h2>Add a new task</h2>
+            </div>
+
+            <button class="close-btn" id="closeModal">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="taskForm">
+
+            <!-- FOTO -->
+            <div class="form-group">
+
+                <label for="taskImage">
+                    Foto Tugas
+                </label>
+
+                <input
+                    type="file"
+                    id="taskImage"
+                    accept="image/*"
+                >
+
+                <small>
+                    Upload screenshot atau foto tugasmu.
+                </small>
+
+            </div>
+
+
+            <!-- NAMA TUGAS -->
+            <div class="form-group">
+
+                <label for="taskName">
+                    Nama Tugas
+                </label>
+
+                <input
+                    type="text"
+                    id="taskName"
+                    placeholder="Contoh: Membuat Landing Page"
+                    required
+                >
+
+            </div>
+
+
+            <!-- MATA KULIAH -->
+            <div class="form-group">
+
+                <label for="taskSubject">
+                    Mata Kuliah
+                </label>
+
+                <input
+                    type="text"
+                    id="taskSubject"
+                    placeholder="Contoh: Pemrograman Web"
+                    required
+                >
+
+            </div>
+
+
+            <!-- DEADLINE -->
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="taskDeadline">
+                        Deadline
+                    </label>
+
+                    <input
+                        type="date"
+                        id="taskDeadline"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- BENTUK PENGUMPULAN -->
+                <div class="form-group">
+
+                    <label for="taskType">
+                        Bentuk Pengumpulan
+                    </label>
+
+                    <select id="taskType" required>
+
+                        <option value="">
+                            Pilih bentuk
+                        </option>
+
+                        <option value="PDF">
+                            PDF
+                        </option>
+
+                        <option value="PPT">
+                            PowerPoint
+                        </option>
+
+                        <option value="DOCX">
+                            Word
+                        </option>
+
+                        <option value="GitHub">
+                            GitHub
+                        </option>
+
+                        <option value="Link">
+                            Link
+                        </option>
+
+                        <option value="Print">
+                            Print
+                        </option>
+
+                        <option value="Lainnya">
+                            Lainnya
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- LINK -->
+            <div class="form-group">
+
+                <label for="taskLink">
+                    Link Pengumpulan
+                    <span>(opsional)</span>
+                </label>
+
+                <input
+                    type="url"
+                    id="taskLink"
+                    placeholder="https://..."
+                >
+
+            </div>
+
+
+            <!-- CATATAN -->
+            <div class="form-group">
+
+                <label for="taskNote">
+                    Catatan
+                    <span>(opsional)</span>
+                </label>
+
+                <textarea
+                    id="taskNote"
+                    rows="4"
+                    placeholder="Tulis catatan tugas di sini..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- BUTTON -->
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelBtn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                >
+                    Save Task 🌱
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+    <!-- Menghubungkan HTML dengan JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
