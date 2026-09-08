@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StudyTrack</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="brand">
+            <div class="brand-icon">🌿</div>
+
+            <div>
+                <h1>Kayla Track</h1>
+                <p>Your little space to stay organized.</p>
+            </div>
+        </div>
+
+        <button class="add-task-btn" type="button">
+            + Add Task
+        </button>
+
+    </header>
+
+
+    <!-- GREETING -->
+    <section class="greeting">
+
+        <p class="greeting-small">
+            Hii Pretty!
+        </p>
+
+        <h2>
+            Let's get your tasks<br>
+            <span>done today.</span>
+        </h2>
+
+    </section>
+
+
+    <!-- STATISTIK -->
+    <section class="stats">
+
+        <div class="stat-card">
+            <p>Total Tasks</p>
+            <h3 id="totalTasks">0</h3>
+        </div>
+
+        <div class="stat-card">
+            <p>Pending</p>
+            <h3 id="pendingTasks">0</h3>
+        </div>
+
+        <div class="stat-card">
+            <p>Completed</p>
+            <h3 id="completedTasks">0</h3>
+        </div>
+
+    </section>
+
+
+    <!-- TASK AREA -->
+    <section class="tasks-section">
+
+        <div class="section-title">
+
+            <div>
+                <p class="section-label">
+                    YOUR TASKS
+                </p>
+
+                <h2>
+                    My Tasks
+                </h2>
+            </div>
+
+
+            <div class="task-tools">
+
+                <div class="search-box">
+
+                    <span>🔍</span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Cari tugas..."
+                    >
+
+                </div>
+
+
+                <div class="filter-wrapper">
+
+                    <button
+                        class="filter-btn"
+                        id="filterBtn"
+                        type="button"
+                    >
+                        All ▾
+                    </button>
+
+
+                    <div
+                        class="filter-menu"
+                        id="filterMenu"
+                    >
+
+                        <button
+                            type="button"
+                            data-filter="all"
+                        >
+                            All
+                        </button>
+
+                        <button
+                            type="button"
+                            data-filter="pending"
+                        >
+                            Pending
+                        </button>
+
+                        <button
+                            type="button"
+                            data-filter="completed"
+                        >
+                            Completed
+                        </button>
+
+                        <button
+                            type="button"
+                            data-filter="overdue"
+                        >
+                            Overdue
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TASK LIST -->
+        <div id="taskList">
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🌱
+                </div>
+
+                <h3>
+                    No tasks yet
+                </h3>
+
+                <p>
+                    Add your first task and keep everything organized.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =========================
+     ADD TASK MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="taskModal"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+
+                <p class="section-label">
+                    NEW TASK
+                </p>
+
+                <h2>
+                    Add a new task
+                </h2>
+
+            </div>
+
+
+            <button
+                class="close-btn"
+                id="closeModal"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="taskForm">
+
+            <!-- FILE TUGAS -->
+            <div class="form-group">
+
+                <label for="taskImage">
+                    File Tugas
+                </label>
+
+                <input
+                    type="file"
+                    id="taskImage"
+                    accept="image/*,.pdf"
+                >
+
+                <small>
+                    Upload screenshot, foto, atau PDF tugas.
+                    Maksimal 3 MB.
+                </small>
+
+            </div>
+
+
+            <!-- NAMA TUGAS -->
+            <div class="form-group">
+
+                <label for="taskName">
+                    Nama Tugas
+                </label>
+
+                <input
+                    type="text"
+                    id="taskName"
+                    placeholder="Contoh: Membuat Landing Page"
+                    required
+                >
+
+            </div>
+
+
+            <!-- MATA KULIAH -->
+            <div class="form-group">
+
+                <label for="taskSubject">
+                    Mata Kuliah
+                </label>
+
+                <input
+                    type="text"
+                    id="taskSubject"
+                    placeholder="Contoh: Pemrograman Web"
+                    required
+                >
+
+            </div>
+
+
+            <!-- DEADLINE + TIPE -->
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="taskDeadline">
+                        Deadline
+                    </label>
+
+                    <input
+                        type="date"
+                        id="taskDeadline"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="taskType">
+                        Bentuk Pengumpulan
+                    </label>
+
+                    <select
+                        id="taskType"
+                        required
+                    >
+
+                        <option value="">
+                            Pilih bentuk
+                        </option>
+
+                        <option value="PDF">
+                            PDF
+                        </option>
+
+                        <option value="PPT">
+                            PowerPoint
+                        </option>
+
+                        <option value="DOCX">
+                            Word
+                        </option>
+
+                        <option value="GitHub">
+                            GitHub
+                        </option>
+
+                        <option value="Link">
+                            Link
+                        </option>
+
+                        <option value="Print">
+                            Print
+                        </option>
+
+                        <option value="Lainnya">
+                            Lainnya
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- LINK -->
+            <div class="form-group">
+
+                <label for="taskLink">
+
+                    Link Pengumpulan
+
+                    <span>
+                        (opsional)
+                    </span>
+
+                </label>
+
+                <input
+                    type="url"
+                    id="taskLink"
+                    placeholder="https://..."
+                >
+
+            </div>
+
+
+            <!-- CATATAN -->
+            <div class="form-group">
+
+                <label for="taskNote">
+
+                    Catatan
+
+                    <span>
+                        (opsional)
+                    </span>
+
+                </label>
+
+                <textarea
+                    id="taskNote"
+                    rows="4"
+                    placeholder="Tulis catatan tugas di sini..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- BUTTON -->
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelBtn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                >
+                    Save Task 🌱
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     TASK DETAIL MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="detailModal"
+>
+
+    <div class="modal-content detail-modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <p class="section-label">
+                    TASK DETAILS
+                </p>
+
+                <h2 id="detailTitle">
+                    Task Details
+                </h2>
+
+            </div>
+
+
+            <button
+                class="close-btn"
+                id="closeDetailModal"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- SUBJECT -->
+        <div class="detail-subject">
+            <span id="detailSubject">
+                -
+            </span>
+        </div>
+
+
+        <!-- DEADLINE -->
+        <div class="detail-item">
+
+            <div class="detail-icon">
+                📅
+            </div>
+
+            <div>
+
+                <small>
+                    Deadline
+                </small>
+
+                <strong id="detailDeadline">
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATUS -->
+        <div class="detail-item">
+
+            <div class="detail-icon">
+                📌
+            </div>
+
+            <div>
+
+                <small>
+                    Status
+                </small>
+
+                <strong id="detailStatus">
+                    Pending
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- BENTUK PENGUMPULAN -->
+        <div class="detail-item">
+
+            <div class="detail-icon">
+                📄
+            </div>
+
+            <div>
+
+                <small>
+                    Bentuk Pengumpulan
+                </small>
+
+                <strong id="detailType">
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- CATATAN -->
+        <div
+            class="detail-note"
+            id="detailNoteBox"
+        >
+
+            <small>
+                📝 Catatan
+            </small>
+
+            <p id="detailNote">
+                Tidak ada catatan.
+            </p>
+
+        </div>
+
+
+
+        <!-- FILE -->
+        <div
+            class="detail-file"
+            id="detailFileBox"
+        >
+
+            <div>
+
+                <small>
+                    📎 File Tugas
+                </small>
+
+                <p id="detailFileName">
+                    -
+                </p>
+
+            </div>
+
+            
+            
+
+            <a
+                id="detailFileBtn"
+                class="detail-action-btn"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                View File
+            </a>
+
+        </div>
+
+        <!-- FILE PREVIEW -->
+<div
+    class="detail-preview"
+    id="detailPreview"
+    style="display: none;"
+>
+    <span class="detail-preview-title">
+        👀 Preview File
+    </span>
+
+    <div
+        class="detail-preview-content"
+        id="detailPreviewContent"
+    ></div>
+</div>
+
+
+        <!-- LINK -->
+        <div
+            class="detail-file"
+            id="detailLinkBox"
+        >
+
+            <div>
+
+                <small>
+                    🔗 Link Pengumpulan
+                </small>
+
+                <p>
+                    Link tersedia
+                </p>
+
+            </div>
+
+            <a
+                id="detailLinkBtn"
+                class="detail-action-btn"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Open Link
+            </a>
+
+        </div>
+
+
+        <!-- ACTION -->
+        <div class="detail-actions">
+
+            <button
+                id="detailDoneBtn"
+                class="detail-done-btn"
+                type="button"
+            >
+                ✓ Mark as Done
+            </button>
+
+            <button
+                id="detailDeleteBtn"
+                class="detail-delete-btn"
+                type="button"
+            >
+                🗑️ Delete Task
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+<script src="script.js"></script>
+
+</body>
+
+</html>
